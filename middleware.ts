@@ -1,8 +1,14 @@
 import { updateSession } from "@/lib/supabase/middleware";
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  try {
+    return await updateSession(request);
+  } catch {
+    // If middleware fails (e.g. missing env vars), let the request through
+    // so the app can show a proper error page rather than a Vercel 500.
+    return NextResponse.next();
+  }
 }
 
 export const config = {
