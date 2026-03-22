@@ -410,7 +410,7 @@ export function UsuariosClient({ initialUsers, currentUserId, branches }: Props)
                 <Label>Sucursal</Label>
                 <Select
                   value={createBranch}
-                  onValueChange={setCreateBranch}
+                  onValueChange={(v) => setCreateBranch(v ?? "")}
                   required={createRole === "operator"}
                 >
                   <SelectTrigger className="w-full min-w-0">
@@ -527,7 +527,7 @@ export function UsuariosClient({ initialUsers, currentUserId, branches }: Props)
               {editRole === "operator" && (
                 <div className="grid gap-2">
                   <Label>Sucursal</Label>
-                  <Select value={editBranch} onValueChange={setEditBranch}>
+                  <Select value={editBranch} onValueChange={(v) => setEditBranch(v ?? "")}>
                     <SelectTrigger className="w-full min-w-0">
                       <span className={cn("flex-1 truncate text-left text-sm", !editBranch && "text-muted-foreground")}>
                         {editBranch

@@ -1,8 +1,10 @@
 import { createClient } from "@supabase/supabase-js";
 
-let _admin: ReturnType<typeof createClient> | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let _admin: any = null;
 
-export function getSupabaseAdmin() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getSupabaseAdmin(): any {
   if (_admin) return _admin;
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

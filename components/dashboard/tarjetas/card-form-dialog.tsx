@@ -43,7 +43,7 @@ export function CardFormDialog({
   onSuccess,
 }: CardFormDialogProps) {
   const [name, setName] = useState("");
-  const [type, setType] = useState<"loyalty" | "event">("loyalty");
+  const [type, setType] = useState<import("@/lib/types").CardType>("loyalty");
   const [targetPurchases, setTargetPurchases] = useState(5);
   const [rewardDescription, setRewardDescription] = useState("");
   const [bgColor, setBgColor] = useState(defaultDesign.bg_color);

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
-import { Camera, CameraOff, LayoutDashboard, Loader2, LogOut, ScanLine } from "lucide-react";
+import { CameraOff, LayoutDashboard, Loader2, LogOut, ScanLine } from "lucide-react";
 import { toast } from "sonner";
 
 export function QrScanner({ operatorName, isAdmin = false }: { operatorName: string; isAdmin?: boolean }) {
@@ -23,7 +23,7 @@ export function QrScanner({ operatorName, isAdmin = false }: { operatorName: str
     readerRef.current = reader;
 
     reader
-      .decodeFromVideoDevice(undefined, videoRef.current!, (result, err) => {
+      .decodeFromVideoDevice(null, videoRef.current!, (result, err) => {
         if (result) {
           const text = result.getText();
           if (cooldown.current || text === lastScan.current) return;

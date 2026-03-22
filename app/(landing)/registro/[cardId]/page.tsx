@@ -9,10 +9,9 @@ type PageProps = {
 };
 
 export default async function PublicCardRegistrationPage({ params }: PageProps) {
-  let admin: any;
-  try {
-    admin = getSupabaseAdmin() as any;
-  } catch {
+  const admin = (() => { try { return getSupabaseAdmin(); } catch { return null; } })();
+
+  if (!admin) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-4 text-sm text-destructive">
@@ -36,7 +35,7 @@ export default async function PublicCardRegistrationPage({ params }: PageProps) 
   }
 
   const card = rowToCard(data as CardRow);
-  const businessRaw = data.business as unknown;
+  const businessRaw = (data as Record<string, unknown>)["business"];
   const business = (Array.isArray(businessRaw) ? businessRaw[0] : businessRaw) as
     | { name?: string }
     | null;

@@ -149,6 +149,11 @@ export function ConfiguracionClient({ initialBusiness }: Props) {
         logo_url: logoUrl,
         hero_url: null,
         program_name: business.name || "Tu programa",
+        label_color: "",
+        barcode_type: "QR_CODE" as const,
+        fine_print: "",
+        homepage_url: "",
+        stamp_icon: "",
       },
     }),
     [business.name, primaryColor, logoUrl]

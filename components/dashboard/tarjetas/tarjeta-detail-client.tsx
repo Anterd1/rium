@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
@@ -24,12 +24,7 @@ import { toast } from "sonner";
 import { CardPreview } from "@/components/dashboard/tarjetas/card-preview";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import type { Card as CardModel } from "@/lib/types";
@@ -102,10 +97,6 @@ export function TarjetaDetailClient({
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const searchParams = useSearchParams();
 
-  const shareUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/registro/${card.id}`
-      : `/registro/${card.id}`;
 
   // Generate QR whenever modal opens
   useEffect(() => {

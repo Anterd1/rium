@@ -44,15 +44,9 @@ export async function POST(request: Request) {
     );
   }
 
-  let admin: ReturnType<typeof getSupabaseAdmin>;
-  try {
-    admin = getSupabaseAdmin();
-  } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Admin no configurado" },
-      { status: 503 }
-    );
-  }
+  let adminErr: string | null = null;
+  const admin = (() => { try { return getSupabaseAdmin(); } catch (e) { adminErr = e instanceof Error ? e.message : "Admin no configurado"; return null; } })();
+  if (!admin) return NextResponse.json({ error: adminErr }, { status: 503 });
 
   // ── Fetch card ──────────────────────────────────────────────────────────────
   const { data: cardRow, error: cardError } = await admin
@@ -75,7 +69,7 @@ export async function POST(request: Request) {
     .eq("email", email)
     .maybeSingle();
 
-  let customerId = existingCustomer?.id as string | undefined;
+  let customerId = (existingCustomer as { id: string } | null)?.id;
   if (!customerId) {
     const { data: created, error: createErr } = await admin
       .from("customers")
@@ -100,7 +94,8 @@ export async function POST(request: Request) {
     .eq("card_id", cardId)
     .maybeSingle();
 
-  let customerCardId = existingCC?.id as string | undefined;
+  const existingCCTyped = existingCC as { id: string; purchases: number; gift_available: boolean } | null;
+  let customerCardId = existingCCTyped?.id;
   if (!customerCardId) {
     const { data: createdCC, error: ccErr } = await admin
       .from("customer_cards")
@@ -129,8 +124,8 @@ export async function POST(request: Request) {
       card,
       customerName: name,
       customerCardId,
-      purchases: existingCC?.purchases ?? 0,
-      giftAvailable: existingCC?.gift_available ?? false,
+      purchases: existingCCTyped?.purchases ?? 0,
+      giftAvailable: existingCCTyped?.gift_available ?? false,
     });
     saveLink = result.saveLink;
   } catch (e) {

@@ -4,13 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
-  CheckCircle2,
   Gift,
   Loader2,
   Minus,
   Plus,
   Stamp,
-  XCircle,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -36,7 +34,7 @@ export function CardAction({ data }: { data: ScanData }) {
 
   const [quantity, setQuantity] = useState(1);
   const [amount, setAmount]     = useState("");
-  const [note, setNote]         = useState("");
+  const [note]                  = useState("");
   const [loading, setLoading]   = useState(false);
   const [confirm, setConfirm]   = useState(false);
   const [result, setResult]     = useState<"stamped" | "redeemed" | null>(null);

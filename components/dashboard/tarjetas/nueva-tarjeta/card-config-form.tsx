@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  ArrowLeft,
   ChevronDown,
   ChevronUp,
   Info,
@@ -700,7 +699,7 @@ function GiftCardConfig({
         <Field label="Moneda">
           <Select
             value={config.currency}
-            onValueChange={(v) => patchConfig({ currency: v })}
+            onValueChange={(v) => patchConfig({ currency: v ?? undefined })}
           >
             <SelectTrigger className="h-9 w-full">
               <SelectValue />

@@ -513,10 +513,11 @@ async function upsertClass(
   classId: string,
   classBody: Record<string, unknown>
 ) {
-  const resource = passType === "loyalty"  ? walletClient.loyaltyclass
-                 : passType === "offer"    ? walletClient.offerclass
-                 : passType === "giftcard" ? walletClient.giftcardclass
-                 :                          walletClient.genericclass;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const resource: any = passType === "loyalty"  ? walletClient.loyaltyclass
+                      : passType === "offer"    ? walletClient.offerclass
+                      : passType === "giftcard" ? walletClient.giftcardclass
+                      :                          walletClient.genericclass;
 
   try {
     await resource.get({ resourceId: classId });
@@ -536,10 +537,11 @@ async function upsertObject(
   objectId: string,
   objectBody: Record<string, unknown>
 ) {
-  const resource = passType === "loyalty"  ? walletClient.loyaltyobject
-                 : passType === "offer"    ? walletClient.offerobject
-                 : passType === "giftcard" ? walletClient.giftcardobject
-                 :                          walletClient.genericobject;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const resource: any = passType === "loyalty"  ? walletClient.loyaltyobject
+                      : passType === "offer"    ? walletClient.offerobject
+                      : passType === "giftcard" ? walletClient.giftcardobject
+                      :                          walletClient.genericobject;
 
   try {
     await resource.get({ resourceId: objectId });
